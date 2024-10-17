@@ -1,0 +1,131 @@
+---
+title: Variables Javascript
+series:
+  order: 1
+  title: "Javascript"
+date: '2024-10-17'
+lastmod: '2024-10-17'
+language: en
+tags: ['javascript', 'développement web', 'guide']
+authors: ['codingeasypeasy']
+images: ['/static/images/twitter-card.png']
+draft: false
+featured: true
+summary: Un guide pour comprendre les variables Javascript.
+---
+
+## Introduction
+
+Les variables Javascript sont utilisées pour stocker des données. L'opérateur d'affectation (=) est utilisé pour affecter les valeurs des variables.
+
+Les fondamentaux de la déclaration d'une variable en JavaScript:
+- Un mot-clé réservé ne peut pas apparaître dans un nom de variable.
+- Ils sont sensibles à la casse.
+- Lors de la déclaration de la variable, celle-ci peut comporter un signe dollar ($), un trait de soulignement, des lettres ou des chiffres.
+- Elle ne peut commencer que par un trait de soulignement ("_"), une lettre ou le symbole "$"
+
+Façons de déclarer une variable Javascript:
+- En utilisant var
+- En utilisant let
+- En utilisant const
+- Les variables peuvent également être déclarées automatiquement
+
+### Conseils: 
+⭐ Déclarez toujours vos variables avant utilisation. (Déclaration avec var, let ou const). <br /> 
+⭐ Notez que (=) est l'opérateur d'affectation tandis que (==) est l'opérateur « égal à ». <br /> 
+⭐ JavaScript a récemment subi des modifications (ECMAScript2015), ajoutant const et let comme mots-clés supplémentaires pour déclarer des variables en raison de problèmes avec le mot-clé var.[Apprendre encore plus](https://www.codingeasypeasy.com/) <br /> 
+⭐ Utilisez uniquement le mot-clé var lors de l'écriture de code pour les versions précédentes du navigateur.
+
+## Utiliser Var
+
+```ts:contentlayer.config.ts
+var myname = "John Walker";
+
+console.log(myname);
+
+//output
+John Walker
+```
+
+## Utiliser Let
+
+```ts:contentlayer.config.ts
+let mynumber = 23;
+
+console.log(mynumber);
+
+//output
+23
+```
+
+## Utiliser Const
+
+```ts:contentlayer.config.ts
+// These are unchangeable constant values.
+
+const mynumber = 51;
+
+console.log(mynumber);
+
+//output
+51
+```
+
+## Utilisation de variables dans les expressions
+
+```ts:contentlayer.config.ts
+let x = 1;
+let y = 2;
+
+let z = x + y;
+
+console.log(z);
+
+//output
+3
+```
+
+## Déclarer des variables et attribuer des valeurs ultérieurement
+
+Si le programmeur n'attribue pas de valeur à une variable déclarée avant l'exécution de l'instruction, la valeur de la variable restera indéfinie.
+
+```ts:contentlayer.config.ts
+let x;
+let y;
+
+x = "Hello World!";
+
+console.log(x);
+//output
+Hello World!
+
+console.log(y);
+//output
+undefined
+```
+
+## Déclarer plusieurs variables avec une seule instruction
+
+Séparez les variables par des virgules :
+
+```ts:contentlayer.config.ts
+let student = "John White", age = 20, gender = "male";
+
+console.log(student, age, gender);
+
+//output
+John White 20 male
+```
+
+## Conclusion
+
+Les variables JavaScript ont une portée.
+L'accessibilité (visibilité) des variables au sein d'un programme est déterminée par sa portée.
+Il existe trois types de portée pour les variables JavaScript :
+- Portée du bloc
+- Portée de la fonction
+- Portée globale
+
+[En savoir plus sur la portée de JavaScript](https://www.codingeasypeasy.com/) 
+
+## Merci de votre lecture !
