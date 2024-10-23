@@ -1,0 +1,235 @@
+---
+title: Understanding React Js hooks
+date: '2024-10-18'
+lastmod: '2024-10-18'
+language: en
+tags: ['react js', 'web development', 'guide', 'react hooks']
+authors: ['codingeasypeasy']
+images: ['/static/images/twitter-card.png']
+draft: false
+featured: true
+summary: Understanding React Js hooks.
+---
+
+## Introduction
+
+Introduced in version 16.8, React Hooks are a potent addition to the React ecosystem. They offer an alternative to building class components for utilizing state and other React features. As a result, component logic is now more reusable and simpler.
+
+### Key Built-in React Hooks and Their Functions
+
+- useState
+
+Used to manage state within functional components.
+Returns an array with the current state value and a function to update it.
+
+```ts:Example
+import { useState } from 'react';
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <p>You clicked   
+        {count} times
+      </p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
+    </div>
+  );
+}
+```
+
+- useEffect
+
+Performs side effects in functional components, such as fetching data or subscribing to events.
+Takes a callback function and an optional dependency array.
+
+```ts:Example
+import { useState, useEffect } from 'react';
+
+function Example() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    document.title = `You clicked ${count} times`;
+  });
+
+  return (
+    <div>
+      <p>You clicked {count}   
+        times
+      </p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
+    </div>
+  );
+}
+```
+
+- useContext
+
+Provides a way to share data between components without prop drilling.
+Creates a context object and a consumer component.
+
+```ts:Example
+import { createContext, useContext } from 'react';
+
+const ThemeContext = createContext('light');
+
+function ThemeProvider({ children }) {
+  const [theme, setTheme] = useState('light');
+
+  return (
+    <ThemeContext.Provider value={{ theme, setTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+}
+
+function   
+ ChildComponent() {
+  const { theme } = useContext(ThemeContext);
+
+  return <div style={{ backgroundColor: theme }}>{theme}</div>;
+}
+```
+
+- useRef
+
+useRef Hook: An Enduring Allusion to DOM Values and Elements
+
+React's useRef hook is a flexible utility that lets you manage and establish persistent references to arbitrary values or DOM elements inside of functional components. UseRef offers a method to access and alter values without requiring needless re-renders, in contrast to useState, which is used to manage state that causes re-renders.
+
+Key Use Cases:
+
+- Accessing DOM Elements:
+
+Directly reference DOM elements: Use useRef to create a reference to a DOM element within your component's JSX. This allows you to manipulate the element's properties, styles, or trigger events directly.
+
+```ts:Example
+import { useRef } from 'react';
+
+function MyComponent() {
+  const inputRef = useRef(null);
+
+  const handleClick = () => {
+    inputRef.current.focus();
+  };
+
+  return (
+    <div>
+      <input type="text" ref={inputRef}   
+ />
+      <button onClick={handleClick}>Focus Input</button>   
+
+    </div>
+  );
+}
+```
+
+- Storing Persistent Values:
+
+Preserve values between renders: To save values that don't require re-rendering, useRef. Configuration settings, timers, and other information that should last the component's lifetime can be stored in this way.
+
+```ts:Example
+import { useRef, useEffect } from 'react';
+
+function MyComponent() {
+  const countRef = useRef(0);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      countRef.current++;
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
+  return (
+    <div>
+      Count: {countRef.current}
+    </div>
+  );
+}
+```
+
+- Considerations when using useRef 
+
+- No re-renders: Modifications to the value kept in a useRef object do not cause the component to be rendered again. Performance optimization may benefit from this, but state update debugging may become more challenging.
+- Initial value: The reference starts with the initial value that is supplied to useRef. The reference is updated directly to current in subsequent iterations.
+- useRef can occasionally result in imperative programming patterns, which can make code more difficult to read and maintain. UseRef should be used sparingly, and where feasible, alternate strategies should be taken into account.
+- In conclusion, React functional components can effectively construct persistent references to DOM elements and values by utilizing the useRef hook. You may effectively use this hook to improve the functionality and performance of your component by being aware of its main use cases and considerations.
+
+- useLayoutEffect
+
+React's useLayoutEffect hook is comparable to useEffect, but it differs in one important way: it activates after the browser has painted and laid up the DOM, guaranteeing that any changes you make to it are instantly displayed on the screen. This is especially helpful when you need to make DOM changes that could change the component's appearance or layout.
+
+### Important Use Cases:
+
+- DOM Manipulations:
+
+Instant updates: To execute DOM operations that must be reflected right away, such applying styles that impact layout, scrolling to a certain location, or focusing on an element, useLayoutEffect.
+
+```ts:Example
+import { useRef, useLayoutEffect } from 'react';
+
+function MyComponent() {
+  const inputRef = useRef(null);
+
+  useLayoutEffect(() => {
+    inputRef.current.focus();
+  }, []);
+
+  return (
+    <div>
+      <input type="text" ref={inputRef} />
+    </div>
+  );
+}
+```
+
+- Measurements
+
+Reliable measurements: To make measurements that rely on the DOM's final layout, such figuring out element sizes or locations, useLayoutEffect.
+
+```ts:Example
+import { useRef, useLayoutEffect, useState } from 'react';
+
+function MyComponent() {
+  const elementRef = useRef(null);
+  const [width, setWidth] = useState(0);
+
+  useLayoutEffect(() => {
+    if (elementRef.current) {
+      setWidth(elementRef.current.offsetWidth);
+    }
+  }, [elementRef]);
+
+  return (
+    <div ref={elementRef}>
+      Width: {width}
+    </div>
+  );
+}
+```
+
+- Performance Optimization:
+
+Steer clear of repaints and reflows: UseLayoutEffect sparingly when doing DOM manipulations that could cause repaints or reflows, as they can have a detrimental effect on performance. If at all possible, use CSS animations or transitions instead.
+
+- Crucial Points to Remember:
+
+- Impact on performance: Because useLayoutEffect runs after the browser has painted and set out the DOM, it may have a minor effect on performance. Only use it when absolutely required.
+- Dependency array: Similar to useEffect, the useLayoutEffect hook accepts a dependency array. Any values that could have an impact on the DOM alterations you're executing should be included.
+- In conclusion, the useLayoutEffect hook offers a strong method for carrying out DOM adjustments and measurements that must be instantly displayed on the screen. You may effectively use this hook to improve the functionality and performance of your component by being aware of its main use cases and considerations.
+
+
+
+## Conclusion
+
+Writing React components has been completely transformed by React Hooks. They have made functional components a feasible and frequently chosen option for developing React apps by offering a declarative and user-friendly method of managing state and side effects.
+
+## Thank you for reading!
